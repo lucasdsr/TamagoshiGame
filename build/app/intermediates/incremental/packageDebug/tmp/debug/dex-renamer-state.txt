@@ -1,0 +1,4 @@
+#Wed Jun 19 17:12:06 BRT 2019
+base.0=/home/gabriel/Documentos/2019.1/Projeto Integrador/TamagoshiGame/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
