@@ -1,4 +1,4 @@
-#Wed Jun 19 17:12:06 BRT 2019
-base.0=/home/gabriel/Documentos/2019.1/Projeto Integrador/TamagoshiGame/build/app/intermediates/transforms/dexMerger/debug/0
+#Sun Jun 30 03:08:17 BRT 2019
+base.0=/home/gabriel/Documentos/2019.1/Linguagens de Programacao/FirstFlutterProject/novoprojeto/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

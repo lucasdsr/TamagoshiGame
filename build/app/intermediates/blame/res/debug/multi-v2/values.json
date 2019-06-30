@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gabriel/Documentos/2019.1/Projeto Integrador/TamagoshiGame/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/gabriel/Documentos/2019.1/Linguagens de Programacao/FirstFlutterProject/novoprojeto/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/home/gabriel/Documentos/2019.1/Projeto Integrador/TamagoshiGame/android/app/src/main/res/values/styles.xml",
+                    "source": "/home/gabriel/Documentos/2019.1/Linguagens de Programacao/FirstFlutterProject/novoprojeto/android/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
