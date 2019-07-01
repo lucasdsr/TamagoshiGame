@@ -127,11 +127,12 @@ class BD {
 
   Future<int> editarPet(Pet pet) async {
     var bdCliente = await db;
-
     // usaremos o toMap
+    print("cheguei aqui tambem");
     return await bdCliente.update(tabelaPet,
       pet.toMap(), where: "$colunaId = ?", whereArgs: [pet.getId()]
     );
+    
   } 
 
    deleteOptionTable() async {

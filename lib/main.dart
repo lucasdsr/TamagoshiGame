@@ -6,17 +6,7 @@ var db = new BD();
 List listaPet;
 Pet pet;
 void main() async {
-  // criando nossa classe BD
-  // var petSalvo = await db.inserirPet(new Pet("Primeiro Pet", (new DateTime.now()).toString(), "normal", 100, 100, 100, 100, 100));
-  // print("usuário inserido $petSalvo");
-
   listaPet = await db.pegarPets();
-  //   pet = Pet.map(listaPet[0]);
-  
-  //add usuario que irá retornar um int
-
-  
-
   runApp(MyApp());
 }
 
@@ -25,10 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Tamagoshando',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+      title: 'Tamagoshando',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: MyHomePage(title: 'Primeiro Tamagoshi'),
     );
   }
@@ -42,16 +32,14 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   // Pet pet;
-  var happy ;
+  var happy;
   var hunger;
   var health;
   var sleep;
   var dirty;
 
-  
   @override
   void initState() {
     pet = Pet.map(listaPet[0]);
@@ -64,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,30 +64,106 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Text("Vida", textAlign: TextAlign.end,)),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.tealAccent[100],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.tealAccent[700]),
+                        value: health * .01,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Text("$health %", textAlign: TextAlign.center,)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Text("Felicidade", textAlign: TextAlign.end,)),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.amber[50],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.amber[400]),
+                        value: happy * .01,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Text("$happy %", textAlign: TextAlign.center,)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Text("Fome", textAlign: TextAlign.end,)),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.red[50],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.red[600]),
+                        value: hunger * .01,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Text("$hunger %", textAlign: TextAlign.center,)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Text("Sono", textAlign: TextAlign.end,)),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.pink[50],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.pink[600]),
+                        value: sleep * .01,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Text("$sleep %", textAlign: TextAlign.center,)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: Text("Sujeira", textAlign: TextAlign.end,)),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.brown[50],
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.brown[600]),
+                        value: dirty * .01,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Text("$dirty %", textAlign: TextAlign.center,)),
+                ],
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('felicidade: $happy | '),
-                                Text('Fome: $hunger | '),
-                                Text('Saude: $health | '),
-                                Text('Sono: $sleep | '),
-                                Text('Sujeira: $dirty'),
-                              ],
-                            ),
-                            Image.network(
-                              // pet.getState() == "normal" ? 
-                              'https://pm1.narvii.com/7106/ff9fd8c887e8b59973641c658eb3c3d6b0db4dc6r1-720-652v2_128.jpg',
-                            ),
-                          ],
+                        Image.network(
+                          // pet.getState() == "normal" ?
+                          'https://pm1.narvii.com/7106/ff9fd8c887e8b59973641c658eb3c3d6b0db4dc6r1-720-652v2_128.jpg',
                         ),
                       ],
                     ),
@@ -117,7 +181,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Colors.brown,
                       onPressed: () {
                         print("Dando comida");
-
+                        setState(() {
+                          pet.setHunger(hunger + 5);
+                          pet.update();
+                          hunger = pet.getHunger();
+                          db.editarPet(pet);
+                        });
                       },
                     ),
                     FloatingActionButton(
@@ -125,6 +194,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Colors.red,
                       onPressed: () {
                         print("Dando Saude");
+                        setState(() {
+                          pet.setHealth(health + 5);
+                          pet.update();
+                          health = pet.getHealth();
+                          db.editarPet(pet);
+                        });
                       },
                       // child: Image.network("  "),
                     ),
@@ -133,6 +208,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Colors.black,
                       onPressed: () {
                         print("Dando uma dormida");
+                        setState(() {
+                          pet.setSleep(sleep + 5);
+                          pet.update();
+                          sleep = pet.getSleep();
+                          db.editarPet(pet);
+                        });
                       },
                       // child: Image.network("  "),
                     ),
@@ -141,32 +222,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       backgroundColor: Colors.green,
                       onPressed: () {
                         print("Dando uma pleiada");
+                        setState(() {
+                          pet.setHappy(happy + 5);
+                          pet.update();
+                          happy = pet.getHappy();
+                          db.editarPet(pet);
+                        });
                       },
                       // child: Image.network("  "),
                     )
                   ],
                 ),
               ),
-            ]
-            //     children: <Widget>[
-            //       Text(
-            //         'You have pushed the button this many times:',
-            //       ),
-            //       Text(
-            //         '$_counter',
-            //         style: TextStyle(
-            //           color: Color(0xff444444),
-            //           fontSize: 150,
-            //         ),
-            //       ),
-            //     ],
-            ),
+            ]),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

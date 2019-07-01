@@ -40,7 +40,7 @@ class Pet {
     mapa["Sleep"] = _sleep;
     mapa["Dirty"] = _dirty;
     mapa["State"] = _state;
-    mapa["LastTime"] = _lastTime;
+    mapa["LastTime"] = _lastTime.toString();
 
     // verificar se o id tem alguma coisa, para não adicionar nada em branco
     if (_id != null){
@@ -120,8 +120,13 @@ class Pet {
     if(_hunger > 100) _hunger = 100;
     if(_health > 100) _health = 100;
     if(_happy > 100) _happy = 100;
-    if(_dirty > 100) _happy = 100;
+    if(_dirty > 100) _dirty = 100;
 
+    if(_sleep <= 0) _sleep = 0;
+    if(_hunger <= 0) _hunger = 0;
+    if(_health <= 0) _health = 0;
+    if(_happy <= 0) _happy = 0;
+    if(_dirty <= 0) _dirty = 0;
     // atualiza estados
     if (_happy < 25) _state = 'sad';
     else if (_health < 25) _state = 'sick';
@@ -131,7 +136,7 @@ class Pet {
     else if(_happy >= 25 && _health >= 25 && _hunger >= 25 && _sleep >= 25) _state = 'normal';
     if (_happy <= 0 || _health <= 0 || _hunger <= 0 || _sleep <= 0) _state = 'dead';
 
-    setLastTime(new DateTime.now());
+    setLastTime((new DateTime.now()).toString());
     print("$_state");
   }
   
