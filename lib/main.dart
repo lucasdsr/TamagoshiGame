@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:novoprojeto/ui/bd.dart';
 import './main-bloc.dart';
+import 'dart:async';
 
 var db = new BD();
 List listaPet;
@@ -39,18 +40,31 @@ class _MyHomePageState extends State<MyHomePage> {
   var health;
   var sleep;
   var dirty;
-
+  var state;
+  var imageState;
+  var isSleep;
+  
+  
   @override
   void initState() {
+    super.initState();
     pet = Pet.map(listaPet[0]);
     pet.update();
-    happy = pet.getHappy();
-    hunger = pet.getHunger();
-    health = pet.getHealth();
-    sleep = pet.getSleep();
-    dirty = pet.getDirty();
-
-    super.initState();
+    
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        pet.update();
+        happy = pet.getHappy();
+        hunger = pet.getHunger();
+        health = pet.getHealth();
+        sleep = pet.getSleep();
+        dirty = pet.getDirty();
+        state = pet.getState();
+        isSleep = pet.getisSleep();
+        db.editarPet(pet);      
+      });
+    });
+    
   }
 
   @override
@@ -61,6 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
+        decoration: pet.getisSleep() == 0 ?
+         BoxDecoration(color: Colors.black54): BoxDecoration(color: Colors.white),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -85,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(child: Text("Felicidade", textAlign: TextAlign.end,)),
+                  Expanded(child: Text("Feliz", textAlign: TextAlign.end,)),
                   Expanded(
                     flex: 5,
                     child: Padding(
@@ -155,20 +171,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Image.network(
-                          // pet.getState() == "normal" ?
-                          'https://pm1.narvii.com/7106/ff9fd8c887e8b59973641c658eb3c3d6b0db4dc6r1-720-652v2_128.jpg',
+                child: 
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            pet.getisSleep() == 1 ?
+                            Image.asset("Assets/Sprites/Piskel/$state.gif")
+                            : Image.asset("Assets/Sprites/Piskel/sleeping.gif")
+                          ],
                         ),
                       ],
                     ),
                   ],
-                ),
+                ), 
               ),
               Container(
                 height: 60,
@@ -183,8 +203,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         print("Dando comida");
                         setState(() {
                           pet.setHunger(hunger + 5);
-                          pet.update();
-                          hunger = pet.getHunger();
                           db.editarPet(pet);
                         });
                       },
@@ -196,8 +214,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         print("Dando Saude");
                         setState(() {
                           pet.setHealth(health + 5);
-                          pet.update();
-                          health = pet.getHealth();
                           db.editarPet(pet);
                         });
                       },
@@ -209,7 +225,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         print("Dando uma dormida");
                         setState(() {
-                          pet.setSleep(sleep + 5);
+                          if (state != "sleeping"){
+                            pet.setisSleep();
+                          } else {
+                            pet.setisSleep();
+                          }
                           pet.update();
                           sleep = pet.getSleep();
                           db.editarPet(pet);
@@ -224,8 +244,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         print("Dando uma pleiada");
                         setState(() {
                           pet.setHappy(happy + 5);
-                          pet.update();
-                          happy = pet.getHappy();
+                          db.editarPet(pet);
+                        });
+                      },
+                      // child: Image.network("  "),
+                    ),
+                    FloatingActionButton(
+                      tooltip: "Dar banho",
+                      backgroundColor: Colors.blue,
+                      onPressed: () {
+                        print("Tomando banho");
+                        setState(() {
+                          pet.setDirty(dirty + 5);
                           db.editarPet(pet);
                         });
                       },
