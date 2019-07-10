@@ -10,7 +10,8 @@ class Pet {
   var _health;
   var _sleep;
   var _dirty;
-  var _isSleep = 0;
+  var _isSleep = 1;
+  var _inGame = 1;
 
   
   Pet(this._name, this._lastTime, this._state, this._happy, this._hunger, this._health, this._sleep, this._dirty);
@@ -71,12 +72,14 @@ class Pet {
   String getState() => _state;
   int getId() => _id;
   int getisSleep() => _isSleep;
+  int getinGame() => _inGame;
 
   void setState(state) => _state = state;
   void setHappy(happy) => _happy = happy;
   void setHunger(hunger) => _hunger = hunger;
   void setHealth(health) => _health = health;
   void setSleep(sleep) => _sleep = sleep;
+  void setinGame(inGame)  => _inGame = inGame;
   void setisSleep(){
     if(_isSleep == 0) {
       _isSleep = 1;
@@ -84,7 +87,8 @@ class Pet {
       _isSleep = 0;
     }
   }
-  void setDirty(dirty) => _dirty += dirty;
+  
+  void setDirty(dirty) => _dirty = dirty;
   void setLastTime(lastTime) => _lastTime = lastTime;
 
 
@@ -154,7 +158,7 @@ class Pet {
       else if(_sleep < 25) _state = 'tired';
       else if(_hunger < 25) _state = 'hunger';
       else if(_happy >= 25 && _health >= 25 && _hunger >= 25 && _sleep >= 25) _state = 'normal';  
-    // if (_happy <= 0 || _health <= 0 || _hunger <= 0 || _sleep <= 0) _state = 'dead';
+    if (_happy <= 0 || _health <= 0 || _hunger <= 0 || _sleep <= 0) _state = 'dead';
 
       setLastTime((new DateTime.now()).toString());
       print("$_state");

@@ -49,8 +49,14 @@ flutter:
     - Assets/Sprites/Piskel/normal.gif
     - Assets/Sprites/Piskel/hunger.gif
     - Assets/Sprites/Piskel/sad.gif
+    - Assets/Sprites/Piskel/sick.gif
     - Assets/Sprites/Piskel/sleeping.gif
     - Assets/Sprites/Piskel/tired.gif
+    - Assets/Sprites/icons/Clean_Icon.gif
+    - Assets/Sprites/icons/Game_Icon.gif
+    - Assets/Sprites/icons/Health_Icon.gif
+    - Assets/Sprites/icons/Hungry_Icon.gif
+    - Assets/Sprites/icons/Sleep_Icon.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
